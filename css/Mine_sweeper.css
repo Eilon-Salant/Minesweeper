@@ -40,7 +40,11 @@ h1 {
   color: black;
 }
 
+.mine {
+  background-color: red;
+}
+
 .cell img {
-  max-width: 35px;
+  max-width: 30px;
   height: auto;
 }

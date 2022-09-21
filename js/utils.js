@@ -5,8 +5,3 @@ function getRandomIntInclusive(min, max) {
   max = Math.floor(max)
   return Math.floor(Math.random() * (max - min + 1) + min)
 }
-
-function getClassName(location) {
-  const cellClass = 'cell-' + location.i + '-' + location.j
-  return cellClass
-}
