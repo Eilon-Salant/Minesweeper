@@ -6,21 +6,52 @@ function getRandomIntInclusive(min, max) {
   return Math.floor(Math.random() * (max - min + 1) + min)
 }
 
-var elClock = document.querySelector('#clock')
-var gameStartTime = 0 // game-milliseconds;
-var realStartTime = Date.now() // real milliseconds
-
 function gameTimer() {
+  var elClock = document.getElementById('clock')
+  var realStartTime = Date.now()
   gTimeInterval = setInterval(function () {
-    var gameTime = gameStartTime + (Date.now() - realStartTime)
-    var sec = Math.floor(gameTime / 1000) % 60
-    var min = Math.floor(gameTime / 60000) % 60
-    var hour = Math.floor(gameTime / 3600000) % 24
-    // output in hh:mm:ss format:
-    elClock.textContent = `${padNum(hour)}:${padNum(min)}:${padNum(sec)}`
-  }, 50)
+    gGame.secsPassed = Date.now() - realStartTime
+    var sec = Math.floor(gGame.secsPassed / 1000) % 60
+    var min = Math.floor(gGame.secsPassed / 60000) % 60
+    var hour = Math.floor(gGame.secsPassed / 3600000) % 24
+    elClock.innerHTML = `${padNum(hour)}:${padNum(min)}:${padNum(sec)}`
+  }, 1000)
+}
 
-  function padNum(number) {
-    return (number < 10 ? '0' : '') + number
+function padNum(number) {
+  return (number < 10 ? '0' : '') + number
+}
+
+// need to modify
+function revealAllCells() {
+  gGame.isOn = false
+  for (var i = 0; i < gLevel.SIZE; i++) {
+    for (var j = 0; j < gLevel.SIZE; j++) {
+      var elCell = document.querySelector(`.cell-${i}-${j}`)
+      var cell = gBoard[i][j]
+
+      if (!cell.isShown && !cell.isMine) {
+        cell.isShown = true
+        elCell.classList.add('shown')
+      } else if (!cell.isShown && cell.isMine) {
+        cell.isShown = true
+        elCell.innerHTML = MINE_IMG
+        elCell.classList.add('mine')
+      }
+
+      if (cell.minesAroundCount && !cell.isMine) {
+        elCell.innerHTML = cell.minesAroundCount
+      }
+    }
   }
+}
+
+function levelClicked(elLevel) {
+  if (elLevel.innerHTML === 'Easy') {
+    gLevel = { SIZE: 4, MINES: 2, LIVES: 1 }
+  } else if (elLevel.innerHTML === 'Medium') {
+    gLevel = { SIZE: 8, MINES: 14, LIVES: 2 }
+  } else gLevel = { SIZE: 12, MINES: 32, LIVES: 3 }
+  gCurrLevel = { ...gLevel }
+  playAgain()
 }

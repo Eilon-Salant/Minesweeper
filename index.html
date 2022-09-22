@@ -9,7 +9,22 @@
   </head>
   <body onload="initGame()">
     <h1>Minesweeper</h1>
-    <div id="clock"></div>
+    <div class="top-container">
+      <div class="levels">
+        <div class="level" id="easy" onclick="levelClicked(this)">Easy</div>
+        <div class="level" id="medium" onclick="levelClicked(this)">Medium</div>
+        <div class="level" id="hard" onclick="levelClicked(this)">Hard</div>
+      </div>
+      <div id="clock">00:00:00</div>
+      <div id="emoji" onclick="playAgain()">&#128515;</div>
+      <div id="lives">
+        <img id="heart1" src="img/heart.png" alt="heart" />
+        <img id="heart2" class="hidden" src="img/heart.png" alt="heart" />
+        <img id="heart3" class="hidden" src="img/heart.png" alt="heart" />
+      </div>
+      <div class="stats"></div>
+    </div>
+
     <!--  -->
     <table class="center" oncontextmenu="return false">
       <tbody class="board"></tbody>
