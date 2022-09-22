@@ -27,7 +27,7 @@ h1 {
   border: 2px solid red;
   padding: 5px 5px;
   vertical-align: middle;
-  min-width: 100px;
+  width: 200px;
   height: 130px;
   background-color: aliceblue;
   border-radius: 10px;
@@ -121,6 +121,8 @@ h1 {
   height: 50px;
   background-color: aliceblue;
   border-radius: 10px;
+  width: 200px;
+  font-weight: bold;
 }
 
 .center {
@@ -138,8 +140,6 @@ h1 {
 .cell {
   background-color: dimgrey;
   border: black 2px solid;
-  /* width: 40px; */
-  /* height: 40px;  // no need for this  */
   text-align: center;
 }
 

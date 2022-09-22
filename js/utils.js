@@ -22,6 +22,17 @@ function padNum(number) {
   return (number < 10 ? '0' : '') + number
 }
 
+function gameStats() {
+  var elShownSpan = document.getElementById('shown-div')
+  var elMarkedSpan = document.getElementById('marked-div')
+  gGame.shownCount = 0
+  gGame.markedCount = 0
+  gStatsInterval = setInterval(() => {
+    elShownSpan.innerText = `Mines revealed: ${gGame.shownCount}`
+    elMarkedSpan.innerText = `Mines marked: ${gGame.markedCount}`
+  }, 50)
+}
+
 // need to modify
 function revealAllCells() {
   gGame.isOn = false
@@ -47,11 +58,20 @@ function revealAllCells() {
 }
 
 function levelClicked(elLevel) {
+  if (gGame.level === elLevel.innerHTML) return
   if (elLevel.innerHTML === 'Easy') {
+    gGame.level = 'Easy'
     gLevel = { SIZE: 4, MINES: 2, LIVES: 1 }
+    document.getElementById('heart2').classList.add('hidden')
+    document.getElementById('heart3').classList.add('hidden')
   } else if (elLevel.innerHTML === 'Medium') {
+    document.getElementById('heart3').classList.add('hidden')
+    gGame.level = 'Medium'
     gLevel = { SIZE: 8, MINES: 14, LIVES: 2 }
-  } else gLevel = { SIZE: 12, MINES: 32, LIVES: 3 }
+  } else {
+    gGame.level = 'Hard'
+    gLevel = { SIZE: 12, MINES: 32, LIVES: 3 }
+  }
   gCurrLevel = { ...gLevel }
   playAgain()
 }

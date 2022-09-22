@@ -8,15 +8,17 @@ var gLevel
 var gGame
 var gFirstClick
 var gTimeInterval
+var gStatsInterval
 var gCurrLevel
 
 function initGame() {
-  gGame = { isOn: true, shownCount: 0, markedCount: 0, secsPassed: 0 }
+  gGame = { isOn: true, shownCount: 0, markedCount: 0, secsPassed: 0, level: 'Easy' }
   gFirstClick = true
   gLevel = { SIZE: 4, MINES: 2, LIVES: 1 }
   gCurrLevel = { ...gLevel }
   gBoard = buildBoard()
   renderBoard(gBoard)
+  gameStats()
 }
 
 function buildBoard() {
@@ -60,6 +62,7 @@ function renderBoard(board) {
 
 function playAgain() {
   clearInterval(gTimeInterval)
+  clearInterval(gStatsInterval)
   gBoard = buildBoard()
   renderBoard(gBoard)
   gGame.isOn = true
@@ -69,11 +72,8 @@ function playAgain() {
   for (var i = 1; i <= gLevel.LIVES; i++) {
     var elHeart = document.getElementById(`heart${i}`)
     elHeart.classList.remove('hidden')
-    // if (elHeart.classList) {
-
-    // }
   }
-
+  gameStats()
   gGame.isShown = 0
   gGame.isMarked = 0
   gFirstClick = true
@@ -91,11 +91,11 @@ function gameLost() {
         elCell.innerHTML = MINE_IMG
         elCell.classList.add('mine')
       }
-      // need to take off (add .hidden) to last heart
-      // document.getElementById(`heart${gLevel.LIVES - 1}`).classList.add('hidden')
-      clearInterval(gTimeInterval)
     }
   }
+
+  document.getElementById(`heart${gLevel.LIVES}`).classList.add('hidden')
+  clearInterval(gTimeInterval)
   var emoji = document.getElementById('emoji')
   emoji.innerHTML = '&#129327;'
   console.log('Game lost')
@@ -194,9 +194,9 @@ function cellMarked(elCell, i, j) {
 }
 
 function clickedCell(elCell, i, j) {
-  if (!gGame.isOn) return
   var cell = gBoard[i][j]
   var elCell = elCell
+  if (!gGame.isOn || cell.isShown) return
 
   elCell.onclick = () => {
     if (cell.isShown || cell.isMarked) return
@@ -205,6 +205,7 @@ function clickedCell(elCell, i, j) {
       if (gLevel.LIVES > 1) {
         document.getElementById(`heart${gLevel.LIVES}`).classList.add('hidden')
         gLevel.LIVES--
+        cell.isShown = true
         elCell.classList.add('mine')
         elCell.innerHTML = MINE_IMG
         cell.isSaved = true
