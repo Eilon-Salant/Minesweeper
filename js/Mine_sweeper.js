@@ -117,7 +117,7 @@ function checkGameOver() {
   console.log('You win!')
 }
 
-function expandShown(board, elCell, cellI, cellJ) {
+function expandShown(board, cellI, cellJ) {
   for (var i = cellI - 1; i <= cellI + 1; i++) {
     if (i < 0 || i >= board.length) continue
 
@@ -215,6 +215,7 @@ function clickedCell(elCell, i, j) {
         elCell.classList.add('mine')
         elCell.innerHTML = MINE_IMG
         cell.isSaved = true
+        checkGameOver()
         return
       }
       elCell.classList.add('mine')
@@ -227,7 +228,7 @@ function clickedCell(elCell, i, j) {
       checkGameOver()
     }
 
-    if (!cell.minesAroundCount && !gFirstClick) expandShown(gBoard, elCell, i, j)
+    if (!cell.minesAroundCount && !gFirstClick) expandShown(gBoard, i, j)
 
     if (cell.minesAroundCount && !cell.isMine) {
       elCell.innerHTML = cell.minesAroundCount

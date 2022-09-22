@@ -3,15 +3,13 @@
   font-family: sans-serif;
 }
 body {
-  /* background-color: rgb(174, 174, 174); */
   background-image: url('/img/trees.jpg');
   background-repeat: no-repeat;
-  background-size: 100%;
   text-align: center;
+  background-position: bottom;
 }
 
 h1 {
-  /* background-color: lightblue; */
   margin-bottom: 4px;
   margin-top: 2px;
 }
@@ -183,19 +181,22 @@ h1 {
 .center {
   margin-left: auto;
   margin-right: auto;
+  width: 570px;
+  height: 570px;
 }
 
 .board .cell {
   width: 45px;
   height: 45px;
-  text-align: center;
+  font-weight: bold;
   font-size: 30px;
+  /* text-align: center; */
 }
 
 .cell {
-  background-color: dimgrey;
+  background-color: rgba(105, 105, 105, 0.827);
   border: black 2px solid;
-  text-align: center;
+  /* text-align: center; */
 }
 
 .shown {
