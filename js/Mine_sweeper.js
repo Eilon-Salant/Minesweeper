@@ -30,14 +30,13 @@ function buildBoard() {
       board[i][j] = {
         isShown: false,
         isMine: false,
+        // isSaved refers to mine cell that whas activated but the user was saved by the extra lives
         isSaved: false,
         isMarked: false,
         minesAroundCount: 0,
       }
     }
   }
-
-  //   console.table(board)
   return board
 }
 
@@ -56,7 +55,6 @@ function renderBoard(board) {
     }
     strHTML += '\n</tr>'
   }
-  //   console.log(strHTML)
   elBoard.innerHTML = strHTML
 }
 
@@ -76,6 +74,10 @@ function playAgain() {
   gameStats()
   gGame.isShown = 0
   gGame.isMarked = 0
+  var elSafeSpan = document.getElementById('safe-span')
+  var elHintsSpan = document.getElementById('hints-span')
+  elSafeSpan.innerHTML = 3
+  elHintsSpan.innerHTML = 3
   gFirstClick = true
 }
 
@@ -114,8 +116,6 @@ function checkGameOver() {
   emoji.innerHTML = '&#128526;'
   console.log('You win!')
 }
-
-// doesnt work yet
 
 function expandShown(board, elCell, cellI, cellJ) {
   for (var i = cellI - 1; i <= cellI + 1; i++) {
@@ -196,8 +196,14 @@ function cellMarked(elCell, i, j) {
 function clickedCell(elCell, i, j) {
   var cell = gBoard[i][j]
   var elCell = elCell
+
   if (!gGame.isOn || cell.isShown) return
 
+  if (document.querySelector('.hints.light-bulb')) {
+    lightBulbClick(i, j)
+    return
+  }
+  // in case of left click
   elCell.onclick = () => {
     if (cell.isShown || cell.isMarked) return
 
@@ -221,9 +227,6 @@ function clickedCell(elCell, i, j) {
       checkGameOver()
     }
 
-    // console.log(gBoard)
-    // console.log(elCell)
-
     if (!cell.minesAroundCount && !gFirstClick) expandShown(gBoard, elCell, i, j)
 
     if (cell.minesAroundCount && !cell.isMine) {
@@ -237,6 +240,7 @@ function clickedCell(elCell, i, j) {
       gFirstClick = false
     }
   }
+  // in case of right click
   elCell.oncontextmenu = () => {
     if (!gGame.isOn) return
     cellMarked(elCell, i, j)

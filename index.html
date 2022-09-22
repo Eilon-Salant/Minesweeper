@@ -15,6 +15,9 @@
         <div class="level" id="medium" onclick="levelClicked(this)">Medium</div>
         <div class="level" id="hard" onclick="levelClicked(this)">Hard</div>
       </div>
+      <div id="safe-click" onclick="safeClick()">
+        <div id="safe-click-div">Safe click: <span id="safe-span">3</span></div>
+      </div>
       <div id="clock">00:00:00</div>
       <div id="emoji" onclick="playAgain()">&#128515;</div>
       <div class="lives">
@@ -22,8 +25,11 @@
         <img id="heart2" class="hidden" src="img/heart.png" alt="heart" />
         <img id="heart3" class="hidden" src="img/heart.png" alt="heart" />
       </div>
+      <div class="hints">
+        <div id="hints-div" onclick="hintsClick()">hints: <span id="hints-span">3</span></div>
+      </div>
       <div class="stats">
-        <div id="shown-div">Mines revealed:</div>
+        <div id="shown-div">Tiles revealed:</div>
         <div id="marked-div">Mines marked:</div>
       </div>
     </div>

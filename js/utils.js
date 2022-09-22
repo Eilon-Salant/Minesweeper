@@ -28,7 +28,7 @@ function gameStats() {
   gGame.shownCount = 0
   gGame.markedCount = 0
   gStatsInterval = setInterval(() => {
-    elShownSpan.innerText = `Mines revealed: ${gGame.shownCount}`
+    elShownSpan.innerText = `Tiles revealed: ${gGame.shownCount}`
     elMarkedSpan.innerText = `Mines marked: ${gGame.markedCount}`
   }, 50)
 }
@@ -74,4 +74,73 @@ function levelClicked(elLevel) {
   }
   gCurrLevel = { ...gLevel }
   playAgain()
+}
+
+function safeClick() {
+  var spanNum = +document.getElementById('safe-span').innerText
+  if (gFirstClick || spanNum === 0) return
+  var elSpan = document.getElementById('safe-span')
+  spanNum--
+  elSpan.innerText = `${spanNum}`
+
+  var safeCells = []
+  for (var i = 0; i < gLevel.SIZE; i++) {
+    for (var j = 0; j < gLevel.SIZE; j++) {
+      var cell = gBoard[i][j]
+      if (!cell.isMine && !cell.isShown) safeCells.push({ cell: cell, i: i, j: j })
+    }
+  }
+  var randomNum = getRandomIntInclusive(0, safeCells.length - 1)
+  var randomI = safeCells[randomNum].i
+  var randomJ = safeCells[randomNum].j
+  document.querySelector(`.cell-${randomI}-${randomJ}`).classList.add('safe')
+  setTimeout(() => {
+    document.querySelector(`.cell-${randomI}-${randomJ}`).classList.remove('safe')
+  }, 2000)
+}
+
+function hintsClick() {
+  var spanNum = +document.getElementById('hints-span').innerText
+  if (gFirstClick || spanNum === 0) return
+  var elSpan = document.getElementById('hints-span')
+  spanNum--
+  elSpan.innerText = `${spanNum}`
+  document.querySelector('body').classList.add('light-bulb')
+  document.querySelector('.hints').classList.add('light-bulb')
+}
+
+function lightBulbClick(cellI, cellJ) {
+  document.querySelector('body').classList.remove('light-bulb')
+  document.querySelector('.hints').classList.remove('light-bulb')
+  var cellsPos = []
+
+  for (var i = cellI - 1; i <= cellI + 1; i++) {
+    if (i < 0 || i >= gBoard.length) continue
+
+    for (var j = cellJ - 1; j <= cellJ + 1; j++) {
+      if (j < 0 || j >= gBoard[i].length) continue
+      var elCurrCell = document.querySelector(`.cell-${i}-${j}`)
+      var cell = gBoard[i][j]
+
+      if (!cell.isShown && !cell.isMine) {
+        elCurrCell.classList.add('revealed')
+        cellsPos.push({ cell: elCurrCell })
+      }
+      //
+      else if (!cell.isShown && cell.isMine) {
+        elCurrCell.innerHTML = MINE_IMG
+        elCurrCell.classList.add('revealed')
+        cellsPos.push({ cell: elCurrCell })
+      }
+
+      console.log(cellsPos[0].cell)
+      setTimeout(() => {
+        for (var i = 0; i < cellsPos.length; i++) {
+          elCurrCell = cellsPos[i].cell
+          elCurrCell.classList.remove('revealed')
+          elCurrCell.innerHTML = ''
+        }
+      }, 1000)
+    }
+  }
 }

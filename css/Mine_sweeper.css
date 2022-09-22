@@ -3,12 +3,15 @@
   font-family: sans-serif;
 }
 body {
-  background-color: rgb(174, 174, 174);
+  /* background-color: rgb(174, 174, 174); */
+  background-image: url('/img/trees.jpg');
+  background-repeat: no-repeat;
+  background-size: 100%;
   text-align: center;
 }
 
 h1 {
-  background-color: lightblue;
+  /* background-color: lightblue; */
   margin-bottom: 4px;
   margin-top: 2px;
 }
@@ -19,18 +22,15 @@ h1 {
   margin-bottom: 2px;
   padding: 2rem 2rem;
   text-align: center;
-  background-color: rgb(49, 49, 49);
+  background-color: rgba(49, 49, 49, 0.466);
   padding: 5px;
 }
 .levels {
-  display: inline-block;
-  border: 2px solid red;
   padding: 5px 5px;
   vertical-align: middle;
   width: 200px;
   height: 130px;
   background-color: aliceblue;
-  border-radius: 10px;
 }
 .level {
   border: solid black 2px;
@@ -63,21 +63,43 @@ h1 {
   background-image: linear-gradient(to right, #ffecd2 0%, #fe382a 51%, #ffecd2 100%);
 }
 
-#clock {
-  display: inline-block;
+#safe-click {
+  min-width: 100px;
+  height: 50px;
+  vertical-align: middle;
+  font-weight: bold;
+  cursor: pointer;
+  flex: 1 1 auto;
+  padding: 0;
+  transition: 0.5s;
+  background-size: 200% auto;
+  color: black;
+  border-radius: 10px;
   border: 2px solid red;
+  display: inline-block;
+  background-image: linear-gradient(to right, rgb(0, 52, 208) 0%, #c2e9fb 51%, rgb(0, 52, 208) 100%);
+}
+
+#safe-click-div {
+  vertical-align: middle;
+  padding: 1rem 1rem;
+  margin: 0;
+  width: 130px;
+}
+
+#safe-click:hover {
+  background-position: right center;
+}
+
+#clock {
   padding: 1rem 1rem;
   vertical-align: middle;
   min-width: 100px;
   height: 50px;
-  background-color: aliceblue;
   font-weight: bold;
-  border-radius: 10px;
 }
 
 #emoji {
-  display: inline-block;
-  border: 2px solid red;
   padding: 5px 5px;
   vertical-align: middle;
   min-width: 50px;
@@ -90,8 +112,6 @@ h1 {
   background-size: 200% auto;
   color: white;
   box-shadow: 0 0 20px #eee;
-  border-radius: 10px;
-  background-color: aliceblue;
   font-size: 25px;
   cursor: pointer;
 }
@@ -101,14 +121,10 @@ h1 {
 }
 
 .lives {
-  display: inline-block;
-  border: 2px solid red;
   padding: 5px 2px;
   vertical-align: middle;
   min-width: 100px;
   height: 50px;
-  background-color: aliceblue;
-  border-radius: 10px;
 }
 
 .lives img {
@@ -117,15 +133,39 @@ h1 {
   margin-top: 6px;
 }
 
-.stats {
-  display: inline-block;
+.hints {
+  min-width: 100px;
+  height: 50px;
+  vertical-align: middle;
+  font-weight: bold;
+  cursor: pointer;
+  flex: 1 1 auto;
+  padding: 0;
+  transition: 0.5s;
+  background-size: 200% auto;
+  color: black;
+  border-radius: 10px;
   border: 2px solid red;
+  display: inline-block;
+  background-image: linear-gradient(to right, hsl(58, 100%, 50%) 0%, white 51%, hsl(58, 100%, 50%) 100%);
+}
+
+.hints:hover {
+  background-position: right center;
+}
+
+#hints-div {
+  vertical-align: middle;
+  width: 130px;
+  padding: 1rem 1rem;
+  margin: 0;
+}
+
+.stats {
   padding: 5px 5px;
   vertical-align: middle;
   min-width: 100px;
   height: 50px;
-  background-color: aliceblue;
-  border-radius: 10px;
   width: 200px;
   font-weight: bold;
 }
@@ -136,6 +176,9 @@ h1 {
 .lives,
 .stats {
   background-image: linear-gradient(to right, #f6d365 0%, #fda085 51%, #f6d365 100%);
+  border-radius: 10px;
+  border: 2px solid red;
+  display: inline-block;
 }
 .center {
   margin-left: auto;
@@ -155,10 +198,6 @@ h1 {
   text-align: center;
 }
 
-/* .cell:hover {
-  background-color: lightblue;
-} */
-
 .shown {
   background-color: lightgreen;
   color: black;
@@ -166,6 +205,14 @@ h1 {
 
 .mine {
   background-color: red;
+}
+
+.safe {
+  background-color: lightblue;
+}
+
+.revealed {
+  background-color: dodgerblue;
 }
 
 .cell img {
@@ -177,3 +224,12 @@ h1 {
 .hidden {
   display: none;
 }
+
+.light-bulb {
+  cursor: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg'  width='40' height='48' viewport='0 0 100 100' style='fill:black;font-size:24px;'><text y='50%'>💡</text></svg>")
+      16 0,
+    auto;
+}
+/* cursor: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg'  width='40' height='48' viewport='0 0 100 100' style='fill:black;font-size:24px;'><text y='50%'>💡</text></svg>")
+    16 0,
+  auto; */
