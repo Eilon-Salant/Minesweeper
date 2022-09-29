@@ -1,51 +1,46 @@
 <!DOCTYPE html>
 <!-- WRITTEN BY EILON SALANT -->
 <html lang="en">
-
-<head>
-  <meta charset="UTF-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Minesweeper Game</title>
-  <!-- @CR: By convention, file name should be css/style.css or css/main.css -->
-  <link rel="stylesheet" href="css/Mine_sweeper.css" />
-</head>
-
-<body onload="initGame()">
-  <h1>Minesweeper</h1>
-  <div class="top-container">
-    <div class="levels">
-      <!-- @CR: We would like to avoid using id! -->
-      <div class="level" id="easy" onclick="levelClicked(this)">Easy</div>
-      <div class="level" id="medium" onclick="levelClicked(this)">Medium</div>
-      <div class="level" id="hard" onclick="levelClicked(this)">Hard</div>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Minesweeper Game</title>
+    <link rel="stylesheet" href="css/Mine_sweeper.css" />
+  </head>
+  <body onload="initGame()">
+    <h1>Minesweeper</h1>
+    <div class="top-container">
+      <div class="levels">
+        <div class="level" id="easy" onclick="levelClicked(this)">Easy</div>
+        <div class="level" id="medium" onclick="levelClicked(this)">Medium</div>
+        <div class="level" id="hard" onclick="levelClicked(this)">Hard</div>
+      </div>
+      <div id="safe-click" onclick="safeClick()">
+        <div id="safe-click-div">Safe click: <span id="safe-span">3</span></div>
+      </div>
+      <div id="clock">00:00:00</div>
+      <div id="emoji" onclick="playAgain()">&#128515;</div>
+      <div class="lives">
+        <img id="heart1" src="img/heart.png" alt="heart" />
+        <img id="heart2" class="hidden" src="img/heart.png" alt="heart" />
+        <img id="heart3" class="hidden" src="img/heart.png" alt="heart" />
+      </div>
+      <div class="hints">
+        <div id="hints-div" onclick="hintsClick()">hints: <span id="hints-span">3</span></div>
+      </div>
+      <div class="stats">
+        <div id="shown-div">Tiles revealed:</div>
+        <div id="marked-div">Mines marked:</div>
+      </div>
     </div>
-    <div id="safe-click" onclick="safeClick()">
-      <div id="safe-click-div">Safe click: <span id="safe-span">3</span></div>
-    </div>
-    <div id="clock">00:00:00</div>
-    <div id="emoji" onclick="playAgain()">&#128515;</div>
-    <div class="lives">
-      <img id="heart1" src="img/heart.png" alt="heart" />
-      <img id="heart2" class="hidden" src="img/heart.png" alt="heart" />
-      <img id="heart3" class="hidden" src="img/heart.png" alt="heart" />
-    </div>
-    <div class="hints">
-      <div id="hints-div" onclick="hintsClick()">hints: <span id="hints-span">3</span></div>
-    </div>
-    <div class="stats">
-      <div id="shown-div">Tiles revealed:</div>
-      <div id="marked-div">Mines marked:</div>
-    </div>
-  </div>
 
-  <table class="center" oncontextmenu="return false">
-    <tbody class="board"></tbody>
-  </table>
-
-  <!-- @CR: By convention, file name should be js/main.js or js/game.js! -->
-  <script src="js/Mine_sweeper.js"></script>
-  <script src="js/utils.js"></script>
-</body>
-
+    <!--  -->
+    <table class="center" oncontextmenu="return false">
+      <tbody class="board"></tbody>
+    </table>
+    <!--  -->
+    <script src="js/Mine_sweeper.js"></script>
+    <script src="js/utils.js"></script>
+  </body>
 </html>

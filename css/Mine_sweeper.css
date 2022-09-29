@@ -3,7 +3,7 @@
   font-family: sans-serif;
 }
 body {
-  background-image: url('/img/trees.jpg');
+  background-image: url('.././img/trees.jpg');
   background-repeat: no-repeat;
   text-align: center;
   background-position: bottom;

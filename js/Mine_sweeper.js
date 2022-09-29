@@ -1,15 +1,12 @@
 'use strict'
 
-// Hi Eilon! First of all, great job! well done!
-// @CR: You'll find my notes with (@CR:) before.
-
 const MINE_IMG = '<img src="img/mine.png">'
 const FLAG_IMG = '<img src="img/flag.png">'
 
 var gBoard
 var gLevel
 var gGame
-var gFirstClick // @CR: By convention, boolean var names start with 'is', gIsFirstClick
+var gFirstClick
 var gTimeInterval
 var gStatsInterval
 var gCurrLevel
@@ -44,7 +41,7 @@ function buildBoard() {
 }
 
 function renderBoard(board) {
-  var elBoard = document.querySelector('.board') // @CR: If you're using it at the end of the function, you can declare it there
+  var elBoard = document.querySelector('.board')
   var strHTML = ''
 
   for (var i = 0; i < board.length; i++) {
@@ -53,24 +50,22 @@ function renderBoard(board) {
       const currCell = board[i][j]
 
       strHTML += `\t<td class="cell cell-${i}-${j}" onmouseup="clickedCell(this, ${i}, ${j})" >\n`
-      // @CR: You forgot </td>
       if (currCell.isMine && currCell.isShown) strHTML += MINE_IMG
-      else if (!currCell.isMine) currCell.innertext = currCell.minesAroundCount // @CR: innerText!
+      else if (!currCell.isMine) currCell.innertext = currCell.minesAroundCount
     }
     strHTML += '\n</tr>'
   }
   elBoard.innerHTML = strHTML
 }
 
-// @CR: restartGame(), will restart the game, clear the intervals and change the info the user sees and some more, and then use init()
 function playAgain() {
   clearInterval(gTimeInterval)
   clearInterval(gStatsInterval)
-  gBoard = buildBoard() // @CR: init()
+  gBoard = buildBoard()
   renderBoard(gBoard)
   gGame.isOn = true
   document.getElementById('clock').innerHTML = '00:00:00'
-  document.getElementById('emoji').innerHTML = '&#128515;' // @CR: DON'T USE IDS!
+  document.getElementById('emoji').innerHTML = '&#128515;'
   gLevel.LIVES = gCurrLevel.LIVES
   for (var i = 1; i <= gLevel.LIVES; i++) {
     var elHeart = document.getElementById(`heart${i}`)
@@ -102,9 +97,8 @@ function gameLost() {
   }
 
   document.getElementById(`heart${gLevel.LIVES}`).classList.add('hidden')
-  // @CR: Could have been 1 function for both situations. lines 119-123, 105-109
   clearInterval(gTimeInterval)
-  var emoji = document.getElementById('emoji') // @CR: elEmoji
+  var emoji = document.getElementById('emoji')
   emoji.innerHTML = '&#129327;'
   console.log('Game lost')
 }
@@ -116,7 +110,7 @@ function checkGameOver() {
       if ((!cell.isMine && !cell.isShown) || (cell.isMine && !cell.isShown && !cell.isMarked && !cell.isSaved)) return
     }
   }
-  gGame.isOn = false // @CR: Could have been 1 function for both situations
+  gGame.isOn = false
   clearInterval(gTimeInterval)
   var emoji = document.getElementById('emoji')
   emoji.innerHTML = '&#128526;'
@@ -201,7 +195,7 @@ function cellMarked(elCell, i, j) {
 
 function clickedCell(elCell, i, j) {
   var cell = gBoard[i][j]
-  var elCell = elCell // @CR: You don't need this var
+  var elCell = elCell
 
   if (!gGame.isOn || cell.isShown) return
 
@@ -234,9 +228,9 @@ function clickedCell(elCell, i, j) {
       checkGameOver()
     }
 
-    if (!cell.minesAroundCount && !gFirstClick) expandShown(gBoard, i, j) // @CR: Should be else if!
+    if (!cell.minesAroundCount && !gFirstClick) expandShown(gBoard, i, j)
 
-    if (cell.minesAroundCount && !cell.isMine) { // CR: else if
+    if (cell.minesAroundCount && !cell.isMine) {
       elCell.innerHTML = cell.minesAroundCount
     }
 

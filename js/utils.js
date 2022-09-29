@@ -8,7 +8,7 @@ function getRandomIntInclusive(min, max) {
 
 function gameTimer() {
   var elClock = document.getElementById('clock')
-  var realStartTime = Date.now() // @CR: startTime?
+  var realStartTime = Date.now()
   gTimeInterval = setInterval(function () {
     gGame.secsPassed = Date.now() - realStartTime
     var sec = Math.floor(gGame.secsPassed / 1000) % 60
@@ -19,7 +19,7 @@ function gameTimer() {
 }
 
 function padNum(number) {
-  return (number < 10 ? '0' : '') + number // @CR: cutie!🍒
+  return (number < 10 ? '0' : '') + number
 }
 
 function gameStats() {
@@ -57,10 +57,10 @@ function revealAllCells() {
   }
 }
 
-function levelClicked(elLevel) { // CR: Could have just sent 'easy', 'medium' or 'hard' and not the element.
+function levelClicked(elLevel) {
   if (gGame.level === elLevel.innerHTML) return
   if (elLevel.innerHTML === 'Easy') {
-    gGame.level = 'Easy' // @CR: gGame.level = elLevel.innerHTML would make it more dynamic.
+    gGame.level = 'Easy'
     gLevel = { SIZE: 4, MINES: 2, LIVES: 1 }
     document.getElementById('heart2').classList.add('hidden')
     document.getElementById('heart3').classList.add('hidden')
